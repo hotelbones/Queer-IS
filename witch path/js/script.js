@@ -64,8 +64,7 @@ const images = {
 
 // Define the backgrounds for each scene.
 const scenes = {
-"nightsky": "moon.jpg",
-"gallery": "gallery.jpg",
+"gallery": "gallery2.jpg",
 "industry": "gaswell.jpg",
 };
 
@@ -123,6 +122,7 @@ const characters = {
 			"look": "w-look.png",
 			"magic": "w-magic.png",
 			"sad": "w-sad.png",
+			"surprised": "w-surprised.png",
 		}
 	},
 
@@ -131,140 +131,110 @@ const characters = {
 let script = {
 	// The game starts here.
 	"Start": [
-		"scene nightsky",
-		"show witch look with fadeIn",
-		"witch Here comes the moon",
-		"witch If my readings are correct, tonight will be the night that the stars reconfigure, and the participants will appear.",
-		"witch .......",
-		"witch It's about time that the coil started",
-		"witch I hope we can change it",
-		"hide witch with fadeOut",
-
-		"The moons glow feels different than other nights. The glow tonight can be felt on your face, washing over you with an aura.",
-		"moon Another participant in tonights activities?",
+		"scene gallery",
+		"show witch happy",
+		"witch uhhh...I guess we will just have to do it here",
 
 		{"Choice":{
-			"wha":{
-				"Text": "Wha...?",
-				"Do": "jump moonspeak",
+			"dowhat":{
+				"Text": "Do WHAT here?",
+				"Do": "jump emotional",
 			},
 
-			"who":{
-				"Text": "Who is that?",
-				"Do": "jump moonspeak",
+			"ready":{
+				"Text": "Are you sure its safe?",
+				"Do": "jump safe",
 			}
 		}}
 
 	],
 
-	"moonspeak": [
-
-		"moon It's alright, everything will be explained soon. But for now there is only so much time, and things that you must do.",
-		"moon Tonight you will have the opportunity to transform with others through interfaces and intersections. I want you to know that just because you have the opportunity, doesn't mean you have to accept it.",
-		"moon In this transformation you may find pleasure and good fortune, or you may find discomfort and pain.",
-		"moon It is for this reason I come to ask if you want to consensually enter this transformative process.",
-		"NOTE: This game is about transforming your social media identity and through the mechanics, connects to your social media account and posts to it based on your actions.",
-
-		{"Choice":{
-			"Dialog": "moon Do you consent and permit your entrance into this process?",
-			"yes":{
-				"Text": "Yes, I consent",
-				"Do": "jump gallery"
-			},
-			"no":{
-				"Text": "No, I will stop here",
-				"Do": ""
-			}
-		}}
-
+	"emotional": [
+		"show witch surprised",
+		"witch ..........",
+		"show witch happy",
+		"witch ha ha.....",
+		"witch You goof so much! Come on, its just gonna be....",
+		"show witch intent",
+		"witch ..emotional.",
 
 	],
 
-	"gallery": [
+		"safe": [
+			"show witch dark",
+			"witch I think soon what is and isn't safe will probably change a lot for you.",
+			"witch ........",
+			"witch Right now, with what I understand about you. No this probably isn't safe. It's honestly going to be uncomfortable.",
+			"witch And, if you don't want to, it isn't something I will pressure you to do.",
 
-		"scene gallery with fadeIn",
-		"The moons light washes over you and you awaken in an art gallery. People are walking around, but only within this room. An impossible figure sits at the front.",
-		"Instructor Welcome everyone, glad to see full attendance again today.",
-		"Instructor All of you are here for your various reasons, as usual.",
-		"Instructor But, I'd like you to contribute to your community, as well as come here for the work around you.",
-
-		"show vandal masked with fadeIn",
-		"vandal .......",
-		"a masked figure looks you up and down as everyone is making themselves comfortable.",
-		"People are looking around the space, talking, or even beginning to sit down. But this masked one continues to stare at you.",
-		"vandal I don't remember seeing you around.",
-
-		{"Choice":{
-			"new":{
-				"Text": "I'm ne-",
-				"Do": "jump uncaring",
-			}
-
-			// "uncaring":{
-			// 	"Text": "I don't care"
-			// }
-		}}
-
-	],
-
-		"uncaring": [
-			"vandal I don't care, I just...",
-			"show vandal masked-mirrored with fadeIn",
-			"vandal .......",
-			"the masked figure begins to walk past you and whispers while walking by",
-			"vandal if you want, we can meet up in the backroom later",
-			"hide vandal with fadeOut",
-			"they go to sit on their mat before you can answer",
-
-			"Instructor Alright everyone, get to your mats",
-			"You look around and everyone is walking to different colors mats on the floor.",
-			"It seems like you should find one to sit at, but you didn't bring one.",
 
 			{"Choice":{
-				"walk":{
-					"Text": "Walk into another room",
-					"Do": "jump walk",
-				},
-				"ask":{
-					"Text": "Ask the person closest for help",
-					"Do": "jump ask",
-				},
-				"wait":{
-					"Text": "Wait around awkwardly silent",
-					"Do": "jump wait",
+				"ok":{
+					"Text": "It's okay, I think I can handle it.",
+					"Do": "jump ritual",
 				},
 
-			}	}
+				"more":{
+					"Text": "I just don't think I am comfortable with this.",
+					"Do": "exit",
+				}
+
+			}}
+		],
+
+		"ritual": [
+			"witch I need you to be honest with yourself for this. Really be transparent with your own emotions.",
+			"witch I'm not going to hold your hand the entire time. I'm just going to give you the steps to follow, and be here if things get hard.",
+			"witch If you decide not to follow the steps, maybe this won't be as emotional of a process. It's really up to you.",
+			"witch Anyways, lets do this.",
+			"hide witch with fadeOut",
+			"witch Before we start I need you to get a piece of paper and something to write with. Let me know when you are ready.",
+			"witch Alright, I want you to think about the past week. Is there anything that really got underneath your skin?",
+			"witch It can be something that made your blood boil, or even something that just threw off your normal daily flow.",
+			"witch Now, take your time, and write your feelings about that moment, person, or thing.",
+
+			{"Input": {
+            "Text": "Can you tell me what you wrote?",
+            "Validation": function(input) {
+                return input.trim().length > 0;
+							}
+						}},
+
+			"witch How does writing about this make you feel?",
+			{"choice":{
+				"angry":{
+					"Text": "Angry",
+					"Do": "jump ritualAnger",
+				},
+				"sad":{
+					"Text": "Sad",
+					"Do": "jump ritualSad",
+				},
+				"uncomfortable":{
+					"Text": "Uncomfortable",
+					"Do": "jump ritualUncomfort",
+				},
+				"nm":{
+					"Text": "Not much really",
+					"Do": "jump ritualNothing",
+				}
+			}}
 
 		],
 
-		"walk": [
-			"slowly, you edge towards the doorway into another room of the gallery",
-			"When the instructors figure doesn't seem to look your direction, you slip out and into the next room",
-			"scene industry",
-			"When you slide around the corner, the gallery looks different in an instant. No more paintings on the walls, in fact there arent any walls.",
-			"You look through brush and trees, and then a flare of light can be seen in the corner of your eye.",
-			"show vandal masked with fadeIn",
-			"vandal you decided to come...sick..."
+		"ritualAnger": [
+			"witch Yeah I totally get that.",
+			"witch "
 		],
-
-		"ask": [
-			"You ask a person close to you what to do",
-			"show witch sad with fadeIn",
-			"witch oh, you don't have a mat? Here.",
-			"show witch magic",
-			"her left eye shines and a rectangle rises from inside the ground.",
-			"show witch happy",
-			"witch You can sit next to me, I have a lot I can teach ya.",
+		"ritualSad": [
+			"witch Feeling sad is totally understandable. "
 		],
-
-		"wait": [
-			"You wait around, hoping someone will notice that you are the only one sitting down.",
-			"Instructor Alright everyone, lets begin the feed.",
-			"No one did.",
-			"trickster *snickers*",
+		"ritualUncomfort": [
+			"witch  "
 		],
-
+		"ritualNothing": [
+			"witch Feeling anger is totally understandable. "
+		]
 
 
 };
